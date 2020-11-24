@@ -1,44 +1,26 @@
-import React, { useState, useEffect } from "react";
-import SearchFrom from '/SearchForm.js';
-import API from "/utils/API";
+import React from "react";
 
-function Search(){
-  const [result, setResult] = useState({})
-  const [search, setSearch] = useState("")
+function Search(props){
+    return(
+      <center>
+        <form style={{margin:"20px", padding:"10px"}}>
+        <div className="form-group">
+          <label style={{fontSize:"2rem", marginRight:"10px", marginTop:"8px" }}htmlFor="search">Search  </label>
+          <input
+            onChange={props.handleInputChange}
+            value={props.value}
+            name="search"
+            placeholder="Search Name"
+            style={{width:"70%", padding:"10px"}}
+          />
+          <button style={{margin:"5px"}} onClick={props.handleFormSubmit} className="btn btn-lg btn-primary">
+            Search
+          </button>
+        </div>
+      </form>
+      </center>
+    )
 
-  useEffect(function(){
-    searchEmployee("")
-  },[])
-
-  async function searchEmployee(query){
-    const response = await API.search(query)
-    console.log(`searched movie:`,result.data)
-    setResult(response.data)
-  };
-  function handleInputChange(event){
-    const {name, value}= event.target;
-    console.log(`name:${name}, value:${value}`)
-    if(name==="search"){
-    setSearch(value)
-    }
-  }
-
-  function handleFormSubmit(event){
-    event.preventDefault();
-  
-    searchEmployee(search)
-  }
-
- 
-    return (
-
-    <SearchFrom
-      value={search}
-      handleInputChange={handleInputChange}
-      handleFormSubmit={handleFormSubmit}
-    />
-  
-    );
 }
 
 export default Search;
